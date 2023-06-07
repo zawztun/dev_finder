@@ -3,10 +3,10 @@ import { useState } from "react";
 import SearchBox from "./components/SearchBox";
 import Header from "./components/Header";
 import Card from "./components/Card";
-import type { UserData } from "./components/Card";
+import type { UserData } from "./types";
 
 function App() {
-  const [result, setResult] = useState<UserData | null>();
+  const [data, setData] = useState<UserData | null>();
   const [keyword, setKeyword] = useState("");
 
   const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -18,16 +18,16 @@ function App() {
             "X-GitHub-Api-Version": "2022-11-28",
           },
         });
-        setResult(data);
+        setData(data);
       } catch {
-        setResult(null);
+        setData(null);
       }
     }
   };
 
   return (
     <>
-      <div className="grid bg-slate-100 dark:bg-bg-bg dark:text-gray-400 h-screen place-items-center font-mono overflow-y-auto  ">
+      <div className="grid h-screen overflow-y-auto font-mono bg-slate-100 dark:bg-bg-bg dark:text-gray-400 place-items-center ">
         <div className="flex flex-col gap-4 w-full min-h-[500px] mt-4 mx-auto my-auto lg:max-w-[700px]">
           {/* header here */}
           <Header />
@@ -36,7 +36,7 @@ function App() {
             setKeyword={setKeyword}
             handleSearch={handleSearch}
           />
-          {result && <Card data={result}></Card>}
+          {data && <Card data={data}></Card>}
         </div>
       </div>
     </>
